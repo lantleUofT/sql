@@ -95,9 +95,11 @@ FROM product;
 vendor_id field they both have in common, and sorts the result by market_date, then vendor_name.
 Limit to 24 rows of output. */
 --QUERY 6
-
-
-
+SELECT *
+FROM vendor
+INNER JOIN vendor_booth_assignments ON vendor.vendor_id = vendor_booth_assignments.vendor_id
+ORDER BY market_date ASC, vendor_name DESC
+LIMIT 24;
 
 --END QUERY
 
@@ -109,6 +111,11 @@ Limit to 24 rows of output. */
 /* 1. Write a query that determines how many times each vendor has rented a booth 
 at the farmer’s market by counting the vendor booth assignments per vendor_id. */
 --QUERY 7
+SELECT 
+COUNT(vendor_id) 
+FROM vendor_booth_assignments
+GROUP BY vendor_id;
+
 
 
 
@@ -122,6 +129,12 @@ of customers for them to give stickers to, sorted by last name, then first name.
 
 HINT: This query requires you to join two tables, use an aggregate function, and use the HAVING keyword. */
 --QUERY 8
+SELECT *, SUM(cost_to_customer_per_qty * quantity) AS total_spend
+FROM customer_purchases
+INNER JOIN customer ON customer_purchases.customer_id = customer.customer_id
+GROUP BY customer.customer_id
+HAVING total_spend >= 2000
+ORDER BY customer_last_name ASC, customer_first_name ASC;
 
 
 
@@ -142,7 +155,13 @@ VALUES(col1,col2,col3,col4,col5)
 */
 --QUERY 9
 
+CREATE TABLE temp.new_vendor AS
+SELECT *
+FROM vendor;
 
+
+INSERT INTO temp.new_vendor
+VALUES (10, 'Thomass Superfood Store', 'Fresh Variety: Veggies & More', 'Thomas', 'Rosenthal');
 
 
 --END QUERY
