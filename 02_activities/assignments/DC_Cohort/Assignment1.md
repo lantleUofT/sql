@@ -196,6 +196,9 @@ Steps to complete this part of the assignment:
 - Read the article
 - Write, within this markdown file, between 250 and 1000 words. No additional citations/sources are required.
 
+
+
+
 ### Ethics
 
 Read: Qadri, R. (2021, November 11). _When Databases Get to Define Family._  Wired. <br>
@@ -209,5 +212,27 @@ Consider, for example, concepts of fariness, inequality, social structures, marg
 
 
 ```
-Your thoughts...
+
+I think that a common value system embedded in our day to day life (and referenced in the document) is gender
+identity being considered a boolean value (e.g. Male vs Female). While I am not one hundred percent sure
+about how our system actually works an interesting confound comes to mind. If we only record biological sex
+(with sex being updated post gender transition surgery), how can we go about accounting for gender identity,
+especially in cultures with less traditional gender norms? For example, it is essential, for medical reasons,
+to have peoples biological sex on file. However, solely relying on this boolean value may result in people
+with differing gender identities due to different cultureal standards, or simply being pre-operation being
+misgendered in a medical setting. I think this is a reflection of the traditional heteronormative gender
+standards inherent to western social structures. However, these standards in turn create inequality and
+fail to apply fairly to those of us who do not subscribe to those traditional social structures, creating
+a degree of marginalization, and generalized discomfort in those who do not identify with the heteronormative
+social structure inherent to the west. Therefore, I propose that those of us working at the intersection of
+technology and society, or even purely technology have a duty to create data systems that are fair, promote
+equality and avoid marginzalization. Notably despite the fact that I am doing my PhD in psychology, one of the
+key fields that studies gender identity I have recieved essentially zero training on these topics, which 
+reflects a systematic issue where we lack training in the context of traditional social structures. This in
+turn likely leads to failures in databses and data systems since it is hard if not impossible to fully 
+account for and capture less traditional social structures if we do not understand, or even know of their
+existence. This is a significant issue that likely causes significant ineqaulity and marginalization of 
+those who do not conform to traditional social structures.
+
+
 ```
