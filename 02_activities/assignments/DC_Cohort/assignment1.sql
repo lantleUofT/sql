@@ -45,7 +45,7 @@ Limit to 25 rows of output.
 --QUERY 3
 SELECT *, quantity * cost_to_customer_per_qty AS price
 FROM customer_purchases
-WHERE product_id BETWEEN 8 AND 10
+WHERE customer_id BETWEEN 8 AND 10
 LIMIT 25;
 
 
