@@ -22,7 +22,9 @@ The `||` values concatenate the columns into strings.
 Edit the appropriate columns -- you're making two edits -- and the NULL rows will be fixed. 
 All the other rows will remain the same. */
 --QUERY 1
-
+SELECT 
+product_name || ', ' || coalesce(product_size, '')|| ' (' || coalesce(product_qty_type, 'unit') || ')' AS super_cool_not_at_all_needy_manager_list
+FROM product;
 
 
 
@@ -40,8 +42,10 @@ each new market date for each customer, or select only the unique market dates p
 HINT: One of these approaches uses ROW_NUMBER() and one uses DENSE_RANK(). 
 Filter the visits to dates before April 29, 2022. */
 --QUERY 2
-
-
+SELECT *, 
+DENSE_RANK() OVER (PARTITION BY [customer_id] ORDER BY [market_date]) AS fm_visit_number
+FROM customer_purchases
+WHERE [market_date] > '2022-04-29';
 
 
 --END QUERY
@@ -53,7 +57,13 @@ only the customer’s most recent visit.
 HINT: Do not use the previous visit dates filter. */
 --QUERY 3
 
-
+SELECT *
+FROM (
+	SELECT *, 
+	DENSE_RANK() OVER (PARTITION BY [customer_id] ORDER BY [market_date] DESC) AS fm_visit_number
+	FROM customer_purchases
+)
+WHERE fm_visit_number = 1;
 
 
 --END QUERY
@@ -65,8 +75,10 @@ customer_purchases table that indicates how many different times that customer h
 You can make this a running count by including an ORDER BY within the PARTITION BY if desired.
 Filter the visits to dates before April 29, 2022. */
 --QUERY 4
-
-
+SELECT *,
+COUNT() OVER (PARTITION BY [product_id],  [customer_id] ORDER BY [customer_id]) AS product_purchases_per_product_id
+FROM customer_purchases
+WHERE [market_date] > '2022-04-29';
 
 
 --END QUERY
@@ -85,7 +97,13 @@ Remove any trailing or leading whitespaces. Don't just use a case statement for 
 Hint: you might need to use INSTR(product_name,'-') to find the hyphens. INSTR will help split the column. */
 --QUERY 5
 
-
+SELECT *,
+CASE
+	WHEN INSTR(product_name, '-') > 0
+	THEN TRIM(SUBSTR(product_name, INSTR(product_name, '-') +1) )
+	ELSE NULL
+END AS product_description
+FROM product;
 
 
 --END QUERY
@@ -93,7 +111,14 @@ Hint: you might need to use INSTR(product_name,'-') to find the hyphens. INSTR w
 
 /* 2. Filter the query to show any product_size value that contain a number with REGEXP. */
 --QUERY 6
-
+SELECT *,
+CASE
+	WHEN INSTR(product_name, '-') > 0
+	THEN TRIM(SUBSTR(product_name, INSTR(product_name, '-') +1) )
+	ELSE NULL
+END AS product_description
+FROM product
+WHERE product_size REGEXP '[0-9]+'; 
 
 
 
