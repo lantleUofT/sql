@@ -56,7 +56,15 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
 ```
-Your answer...
+Okay so we have two common architectural approachs, a type 1 design which overwriting existing data
+and a type 2 design which retains all historical changes. In a type 1 design each customer would have
+a single row containing values from columns "address, customer_id, street, city, province,
+postal code. When a customer moves we would simply run UPDATE on their existing row. In the type 2
+design we would have the same columns with 3 extras, valid_from (timestamp), valid_to (timestamp),
+and is_current(boolean). Instead of updating when a customer changes their address we would create
+a new row and change the previous one to indicate when they changed their address and that
+that row is no longer the current address. This preserves address history, but there would be
+added query complexity."...
 ```
 
 ***
@@ -191,5 +199,18 @@ Consider, for example, concepts of labour, bias, LLM proliferation, moderating c
 
 
 ```
-Your thoughts...
+The concepts of bias, LLM proliferation and moderation content spoke to me especially in this article. I think as we move into an era
+more and more shaped by machine learning, the standards we use for training data, especially publically available
+training data become more and more important. In an ideal world AI would be unbiased, however, as is the case especially
+with supervised learning bias can often slip in. This is because humans are rating all of the training data, take
+for example a chess match, an algorithm trained on hundreds of games where each move is marked ideal or not ideal
+may have some bias in them. Even if a highly skilled player like magnus or hikaru rated each move 
+idenpendently (which is incredibly unrealistic) they still wouldn't give perfect examples. After all chess, unlike
+checkers hasn't been fully solved. We don't yet know what the optimal move is in every board state, so by using this
+training data the AI would be biased towards making moves that one player believes are optimal, but may in fact be 
+sub optimal. When this starts getting scary is when we have live facial recognition technology. For example there was
+a recent scandal in the UK where AI identified significantly more black criminals than white ones, likely due to bias
+in the training data. As data scientists part of our responsibility is to ensure training data is as unbiased as possible
+so the AI systems of the future do not share our own biases, especially as they continue to spread
+and profiliferate into more and more facets of everyday life.
 ```
